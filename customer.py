@@ -15,6 +15,10 @@ class Customer:
             entry_fee = 1500
         elif 64 < self.age:
             entry_fee = 1200
+        elif self.age <= 3:
+            entry_fee = 0
+        elif 75 <= self.age:
+            return 500
         return entry_fee
     
     def info(self):
@@ -25,35 +29,18 @@ class Customer:
         info_result = self.info()
         info_csv = f'"{info_result[0]},{info_result[1]},{info_result[2]}"'
         return info_csv
-
-
-class NewPrice(Customer):
-    def entry_fee(self):
-        if self.age <= 3:
-            return 0
-        else:
-            return super().entry_fee() #条件に当てはまらない場合は､ベースのメソッドにつなげる
     
-class NewPrice2(NewPrice):
-    def entry_fee(self):
-        if 75 <= self.age:
-            return 500
-        else:
-            return super().entry_fee()   
-        
-class TabSplit(NewPrice2):
     def tab_split(self):
         data_to_split = self.info()
         tab_split = f"{data_to_split[0]}\t{data_to_split[1]}\t{data_to_split[2]}"
         return tab_split
-        
-class PipeSplit(TabSplit):
+    
     def pipe_split(self):        
         data_to_split = self.info()
         pipe_split = f"{data_to_split[0]}{'|'}{data_to_split[1]}{'|'}{data_to_split[2]}"
         return pipe_split
 
-               
+       
     
 
 ken = Customer(first_name="Ken",family_name="Tanaka", age = 15)
@@ -71,22 +58,22 @@ print(ieyasu.age)
 print(ieyasu.entry_fee())
 print(ieyasu.info_csv())
 
-shohei = NewPrice(first_name = "Shohei", family_name = "Ohtani", age = 3 )
+shohei = Customer(first_name = "Shohei", family_name = "Ohtani", age = 3 )
 print(shohei.entry_fee())
 
-buffet = NewPrice2(first_name= "Warren", family_name= "Buffet", age = 75)
+buffet = Customer(first_name= "Warren", family_name= "Buffet", age = 75)
 print(buffet.entry_fee())
 
-ken = TabSplit(first_name="Ken",family_name="Tanaka", age = 15)
-tom = TabSplit(first_name="Tom", family_name="Ford", age = 57)
-ieyasu = TabSplit(first_name="Ieyasu", family_name="Tokugawa", age= 73)
+ken = Customer(first_name="Ken",family_name="Tanaka", age = 15)
+tom = Customer(first_name="Tom", family_name="Ford", age = 57)
+ieyasu = Customer(first_name="Ieyasu", family_name="Tokugawa", age= 73)
 print(ken.tab_split())
 print(tom.tab_split())
 print(ieyasu.tab_split())
 
-ken = PipeSplit(first_name="Ken",family_name="Tanaka", age = 15)
-tom = PipeSplit(first_name="Tom", family_name="Ford", age = 57)
-ieyasu = PipeSplit(first_name="Ieyasu", family_name="Tokugawa", age= 73)
+ken = Customer(first_name="Ken",family_name="Tanaka", age = 15)
+tom = Customer(first_name="Tom", family_name="Ford", age = 57)
+ieyasu = Customer(first_name="Ieyasu", family_name="Tokugawa", age= 73)
 print(ken.pipe_split())
 print(tom.pipe_split())
 print(ieyasu.pipe_split())
